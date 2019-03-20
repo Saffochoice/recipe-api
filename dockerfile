@@ -1,20 +1,7 @@
-FROM python:3.7-alpine
-MAINTAINER NEOKKERS
-
+FROM python:3
 ENV PYTHONUNBUFFERED 1
-
-COPY ./requirements.txt /requirements.txt
-RUN pip install -r /requirements.txt
-
-
-
-RUN mkdir /app
-WORKDIR /app
-COPY ./app /app
-
-RUN adduser -D user
-
-# RUN chown -R user:user /app
-# RUN chmod 755 /app
-#RUN chown user /app
-USER user
+RUN mkdir /code
+WORKDIR /code
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/

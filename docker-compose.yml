@@ -1,12 +1,14 @@
-version: "3"
+version: '3'
 
-services: 
-  app: 
+services:
+  db:
+    image: postgres
+  web:
     build: .
-    user: root
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./code:/code
     ports:
       - "8000:8000"
-    volumes:
-      - ./app:/app
-    command: chown -R 1001:1001 /app
-    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
